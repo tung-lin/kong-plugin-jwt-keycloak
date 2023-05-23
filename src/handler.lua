@@ -285,9 +285,11 @@ local function do_authentication(conf)
         return false, { status = 401, message = "Token issuer not allowed" }
     end
 
-    err = validate_signature(conf, jwt)
-    if err ~= nil then
-        return false, err
+    if conf.validate_token_signature then
+      err = validate_signature(conf, jwt)
+      if err ~= nil then
+          return false, err
+      end
     end
 
     -- Match consumer

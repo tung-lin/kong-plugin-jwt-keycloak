@@ -17,6 +17,7 @@ return {
 
           { allowed_iss = { type = "set", elements = { type = "string" }, required = true }, },
           { iss_key_grace_period = { type = "number", default = 10, between = { 1, 60 }, }, },
+          { validate_token_signature = { type = "boolean", default = false }, },
           { well_known_template = { type = "string", default = "%s/.well-known/openid-configuration" }, },
           
           { scope = { type = "set", elements = { type = "string" }, default = nil }, },
