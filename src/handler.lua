@@ -210,7 +210,7 @@ local function validate_signature(conf, jwt, second_call)
 end
 
 local function match_consumer(conf, jwt)
-    local consumer, err
+    local consumer, err, consumer_cache_key
     local consumer_id = jwt.claims[conf.consumer_match_claim]
 
     if conf.consumer_match_claim_custom_id then
@@ -286,7 +286,7 @@ local function do_authentication(conf)
     end
 
     if conf.validate_token_signature then
-      err = validate_signature(conf, jwt)
+      local err = validate_signature(conf, jwt)
       if err ~= nil then
           return false, err
       end
@@ -294,7 +294,7 @@ local function do_authentication(conf)
 
     -- Match consumer
     if conf.consumer_match then
-        ok, err = match_consumer(conf, jwt)
+        local ok, err = match_consumer(conf, jwt)
         if not ok then
             return ok, err
         end
