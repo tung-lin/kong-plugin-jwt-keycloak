@@ -159,12 +159,12 @@ end
 
 local function get_keys(well_known_endpoint)
     kong.log.debug('Getting public keys from keycloak')
-    keys, err = keycloak_keys.get_issuer_keys(well_known_endpoint)
+    local keys, err = keycloak_keys.get_issuer_keys(well_known_endpoint)
     if err then
         return nil, err
     end
 
-    decoded_keys = {}
+    local decoded_keys = {}
     for i, key in ipairs(keys) do
         decoded_keys[i] = jwt_decoder:base64_decode(key)
     end
